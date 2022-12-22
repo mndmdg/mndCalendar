@@ -34,6 +34,7 @@ class ScheduleAdapter(private val data: List<CalendarData>) :
         holder.setView(data,position)
         holder.binding.clickSchdule.setOnClickListener {
             val intent = Intent(holder.itemView.context,EditActivity::class.java)
+            intent.putExtra("sdx",data[position].sdx)
             intent.putExtra("dat",data[position].dat)
             intent.putExtra("tit",data[position].tit)
             intent.putExtra("big",data[position].big)

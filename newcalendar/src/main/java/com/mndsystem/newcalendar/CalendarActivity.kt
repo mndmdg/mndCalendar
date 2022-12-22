@@ -2,10 +2,14 @@ package com.mndsystem.newcalendar
 
 import android.R.attr.bottom
 import android.R.attr.y
+import android.content.Intent
+import android.graphics.Rect
 import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +30,7 @@ open class CalendarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
         // 현재 날짜 들고오기
         calendar.time = Date()
         binding.tvTitle.text = sdf.format(calendar.time)
@@ -59,6 +64,11 @@ open class CalendarActivity : AppCompatActivity() {
             })
 
         }
+        // 등록하기
+        binding.btnRegister.setOnClickListener {
+            val intent = Intent(this,RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }
@@ -73,14 +83,16 @@ open class CalendarActivity : AppCompatActivity() {
         )
             .enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
+                    Log.d("TAG", "${response.body()}")
                     val jsonArray = JSONArray(response.body())
                     for (i in 0 until jsonArray.length() - 1) {
                         val jObject = jsonArray.getJSONObject(i)
+                        val sdx = jObject.getString("sdx")
                         val dat = jObject.getString("dat")
                         val tit = jObject.getString("tit")
                         val dam = jObject.getString("dam")
                         val big = jObject.getString("big")
-                        data.add(CalendarData(dat, tit, dam, big))
+                        data.add(CalendarData(sdx,dat, tit, dam, big))
                         datArray.add(dat)
                     }
                     runOnUiThread {
@@ -107,6 +119,23 @@ open class CalendarActivity : AppCompatActivity() {
                 }
             }
             )
+    }
+
+    // 바깥쪽 터치시 키보드 내려가기
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val focusView = currentFocus
+        if (focusView != null) {
+            val rect = Rect()
+            focusView.getGlobalVisibleRect(rect)
+            val x = ev.x.toInt()
+            val y = ev.y.toInt()
+            if (!rect.contains(x, y)) {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(focusView.windowToken, 0)
+                focusView.clearFocus()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }
 

@@ -9,9 +9,11 @@ import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mndsystem.newcalendar.databinding.DayItemBinding
@@ -38,18 +40,23 @@ class DayAdapter(
             val scheduleArray = data.filter { it.dat == dat }
             val cal = Calendar.getInstance()
             binding.tvDay.text = dat.substring(8, 10)
-            binding.recyclerViewDay.adapter = ScheduleAdapter(scheduleArray)
+            if (scheduleArray[0].tit.isNotEmpty()){
+                binding.recyclerViewDay.adapter = ScheduleAdapter(scheduleArray)
+            }else{
+                binding.recyclerViewLayout.visibility = View.GONE
+                Log.d("TAG", "setSchedule: ??")
+            }
+
             val sdf = SimpleDateFormat("yyyy-MM-dd", Locale("ko", "KR"))
             if (sdf.format(Date()) == dat) {
-                binding.tvDay.setBackgroundColor(Color.YELLOW)
+                binding.clickDay.setBackgroundColor(Color.YELLOW)
             }
             val split = dat.split("-")
-            Log.d("TAG", "setSchedule: $split")
             cal.set(split[0].toInt(), split[1].toInt() - 1, split[2].toInt())
             when (cal.get(Calendar.DAY_OF_WEEK)) {
                 1 -> {
                     binding.apply {
-                        tvDay.setTextColor(Color.RED)
+//                        tvDay.setTextColor(Color.RED)
                         tvWeek.setTextColor(Color.RED)
                         tvWeek.text = "일요일"
                     }
@@ -82,7 +89,7 @@ class DayAdapter(
                 }
                 7 -> {
                     binding.apply {
-                        tvDay.setTextColor(Color.BLUE)
+//                        tvDay.setTextColor(Color.BLUE)
                         tvWeek.setTextColor(Color.BLUE)
                         tvWeek.text = "토요일"
                     }
@@ -99,12 +106,6 @@ class DayAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.setSchedule(data, datArray[position])
-        holder.binding.clickDay.setOnClickListener {
-            val intent = Intent(holder.itemView.context,RegisterActivity::class.java)
-            intent.putExtra("dat",datArray[position])
-            ContextCompat.startActivity(holder.itemView.context,intent,null)
-            (holder.itemView.context as Activity).overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
-        }
 
     }
 

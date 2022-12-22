@@ -82,17 +82,19 @@
                 android:minWidth="80dp"
                 android:text="일자"
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-            <EditText
+            <TextView
                 android:id="@+id/regi_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingLeft="5dp" />
+                android:paddingLeft="5dp"
+                android:textColor="#000000"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -110,7 +112,8 @@
                 android:minWidth="80dp"
                 android:text="내용"
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/regi_tit"
@@ -118,9 +121,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingLeft="5dp" />
+                android:inputType="textMultiLine|textPersonName|textImeMultiLine"
+                android:lineSpacingExtra="5dp"
+                android:lines="2"
+                android:maxEms="3"
+                android:maxLines="2"
+                android:paddingLeft="5dp"
+                android:singleLine="false"
+                android:textSize="24sp" />
 
         </LinearLayout>
 
@@ -139,7 +147,8 @@
                 android:minWidth="80dp"
                 android:text="비고"
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/regi_big"
@@ -149,7 +158,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:paddingLeft="5dp" />
+                android:paddingLeft="5dp"
+                android:textSize="24sp" />
 
         </LinearLayout>
 
@@ -168,7 +178,8 @@
                 android:minWidth="80dp"
                 android:text="담당자"
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/regi_dam"
@@ -178,7 +189,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:paddingLeft="5dp" />
+                android:paddingLeft="5dp"
+                android:textSize="24sp" />
         </LinearLayout>
     </LinearLayout>
 

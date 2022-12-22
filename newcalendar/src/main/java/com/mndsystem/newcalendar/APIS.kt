@@ -12,13 +12,13 @@ import retrofit2.http.*
 
 interface APIS {
 
-    @GET("2022/DATE/date.php")
+    @POST("2022/DATE/date.php")
     fun getCalendarData(
         @Query("year") year: String,
         @Query("mon") mon: String
     ): Call<String>
 
-    @GET("Android/Calendar/register_schedule.php")
+    @POST("Android/Calendar/register_schedule.php")
     fun registerSchedule(
         @Query("dat")dat:String,
         @Query("tit")tit:String,
@@ -27,14 +27,19 @@ interface APIS {
     ): Call<String>
 
 
-    @GET("Android/Calendar/delete_schedule.php")
+    @POST("Android/Calendar/delete_schedule.php")
     fun deleteSchedule(
+        @Query("sdx")sdx:String
+    ): Call<String>
+
+    @POST("Android/Calendar/update_schedule.php")
+    fun updateSchedule(
+        @Query("sdx")sdx:String,
         @Query("dat")dat:String,
         @Query("tit")tit:String,
         @Query("dam")dam:String,
         @Query("big")big:String
-    ): Call<String>
-
+    ):Call<String>
 
 
     companion object{
