@@ -20,7 +20,7 @@ import java.util.*
 class RegisterActivity : AppCompatActivity() {
     private val api = APIS.create()
     private val binding by lazy { ActivityRegisterBinding.inflate(layoutInflater) }
-    private val sdf = SimpleDateFormat("yyyy - MM", Locale("ko", "KR"))
+    private val sdf = SimpleDateFormat("yyyy-MM-dd", Locale("ko", "KR"))
     // 바깥쪽 터치시 키보드 내려가기
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         val focusView = currentFocus
