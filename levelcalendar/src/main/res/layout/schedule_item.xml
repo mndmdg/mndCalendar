@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/click_schdule"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="2dp"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:id="@+id/tit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="오늘의 할일입니다."
+            android:textColor="#000000"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="175dp"
+            tools:layout_editor_absoluteY="48dp" />
+
+        <TextView
+            android:id="@+id/big"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:alpha="0.7"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:text="비고란 입니다."
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:layout_editor_absoluteX="95dp"
+            tools:layout_editor_absoluteY="175dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0.8dp"
+        android:layout_height="match_parent"
+        android:background="#989898"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/dam"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:minHeight="50dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="신정훈"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="290dp"
+        tools:layout_editor_absoluteY="193dp" />
+</LinearLayout>

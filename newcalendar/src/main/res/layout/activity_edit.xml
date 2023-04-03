@@ -11,6 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/gothic_semibold"
         android:paddingLeft="10dp"
         android:text="일정 수정"
         android:textColor="#000000"
@@ -20,20 +21,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    <TextView
-        android:id="@+id/login_footer3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <View
+        android:id="@+id/view6"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="@string/footer"
-        android:textColor="#ccc"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -52,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
+            android:elevation="10dp"
             app:srcCompat="@drawable/logo" />
 
     </LinearLayout>
@@ -59,12 +58,12 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/btn_remove"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_">
+        app:layout_constraintTop_toBottomOf="@+id/view6">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,6 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:alpha="0.9"
+                android:fontFamily="@font/gothic_semibold"
                 android:gravity="center"
                 android:minWidth="80dp"
                 android:text="일자"
@@ -89,6 +89,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:background="@android:drawable/edit_text"
+                android:fontFamily="@font/gothic_regular"
                 android:paddingLeft="5dp"
                 android:textColor="#000000"
                 android:textSize="24sp" />
@@ -98,13 +100,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_tit"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:alpha="0.9"
+                android:fontFamily="@font/gothic_semibold"
                 android:gravity="center"
                 android:minWidth="80dp"
                 android:text="내용"
@@ -114,11 +118,14 @@
             <EditText
                 android:id="@+id/edit_tit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:background="@android:drawable/edit_text"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:fontFamily="@font/gothic_regular"
+                android:gravity="top|left"
+                android:inputType="textMultiLine|textPersonName"
                 android:paddingLeft="5dp"
                 android:textSize="24sp" />
 
@@ -135,6 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:alpha="0.9"
+                android:fontFamily="@font/gothic_semibold"
                 android:gravity="center"
                 android:minWidth="80dp"
                 android:text="비고"
@@ -147,7 +155,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:background="@android:drawable/edit_text"
                 android:ems="10"
+                android:fontFamily="@font/gothic_regular"
                 android:inputType="textPersonName"
                 android:paddingLeft="5dp"
                 android:textSize="24sp" />
@@ -165,6 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:alpha="0.9"
+                android:fontFamily="@font/gothic_semibold"
                 android:gravity="center"
                 android:minWidth="80dp"
                 android:text="담당자"
@@ -177,7 +188,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:background="@android:drawable/edit_text"
                 android:ems="10"
+                android:fontFamily="@font/gothic_regular"
                 android:inputType="textPersonName"
                 android:paddingLeft="5dp"
                 android:textSize="24sp" />
@@ -187,36 +200,39 @@
     <Button
         android:id="@+id/btn_edit"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/gothic_bold"
         android:text="수정"
-        app:layout_constraintBottom_toTopOf="@+id/login_footer3"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_remove" />
 
     <Button
         android:id="@+id/btn_remove"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/gothic_bold"
         android:text="삭제"
-        app:layout_constraintBottom_toTopOf="@+id/login_footer3"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_edit"
         app:layout_constraintStart_toEndOf="@+id/btn_cancel" />
 
     <Button
         android:id="@+id/btn_cancel"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/gothic_bold"
         android:text="취소"
-        app:layout_constraintBottom_toTopOf="@+id/login_footer3"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_remove"
         app:layout_constraintStart_toStartOf="parent" />
 

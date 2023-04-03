@@ -1,7 +1,6 @@
 package com.mndsystem.newcalendar
 
-import android.R.attr.bottom
-import android.R.attr.y
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.graphics.Rect
 import android.icu.text.SimpleDateFormat
