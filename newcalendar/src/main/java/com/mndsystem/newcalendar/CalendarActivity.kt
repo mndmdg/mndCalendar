@@ -1,16 +1,19 @@
 package com.mndsystem.newcalendar
 
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.graphics.Rect
 import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.MotionEvent
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.HandlerCompat.postDelayed
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mndsystem.newcalendar.databinding.ActivityCalendarBinding
@@ -26,14 +29,29 @@ open class CalendarActivity : AppCompatActivity() {
     private val binding by lazy { ActivityCalendarBinding.inflate(layoutInflater) }
     private val calendar = Calendar.getInstance()
     private val sdf = SimpleDateFormat("yyyy - MM", Locale("ko", "KR"))
+
+    override fun onRestart() {
+        super.onRestart()
+        getCalendarData("null")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 하단 내비게이션 바 삭제
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
         // 현재 날짜 들고오기
         calendar.time = Date()
         binding.tvTitle.text = sdf.format(calendar.time)
-        getCalendarData()
+        getCalendarData("first")
 //        리사이클러뷰에 데이터 넣기
 
         with(binding) {
@@ -41,13 +59,13 @@ open class CalendarActivity : AppCompatActivity() {
             // PREV 버튼 클릭
             btnPrev.setOnClickListener {
                 calendar.add(Calendar.MONTH, -1)
-                getCalendarData()
+                getCalendarData("null")
                 tvTitle.text = sdf.format(calendar.time)
             }
             // NEXT 버튼 클릭
             btnNext.setOnClickListener {
                 calendar.add(Calendar.MONTH, 1)
-                getCalendarData()
+                getCalendarData("null")
                 tvTitle.text = sdf.format(calendar.time)
             }
         }
@@ -55,24 +73,22 @@ open class CalendarActivity : AppCompatActivity() {
         binding.btnToday.setOnClickListener {
             calendar.time = Date()
             binding.tvTitle.text = sdf.format(calendar.time)
-            getCalendarData()
+            getCalendarData("null")
             val y = binding.recyclerViewMain.getChildAt(calendar.get(Calendar.DAY_OF_MONTH) - 1).y
             binding.nestedScrollView.post(Runnable {
                 binding.nestedScrollView.fling(0)
-                binding.nestedScrollView.scrollTo(0, y.toInt())
+                binding.nestedScrollView.smoothScrollTo(0, y.toInt())
             })
 
         }
         // 등록하기
         binding.btnRegister.setOnClickListener {
-            val intent = Intent(this,RegisterActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
-
-
     }
 
-    private fun getCalendarData() {
+    private fun getCalendarData(mod:String) {
         val api = APIS.create()
         val data = mutableListOf<CalendarData>()
         val datArray = mutableListOf<String>()
@@ -91,7 +107,7 @@ open class CalendarActivity : AppCompatActivity() {
                         val tit = jObject.getString("tit")
                         val dam = jObject.getString("dam")
                         val big = jObject.getString("big")
-                        data.add(CalendarData(sdx,dat, tit, dam, big))
+                        data.add(CalendarData(sdx, dat, tit, dam, big))
                         datArray.add(dat)
                     }
                     runOnUiThread {
@@ -108,7 +124,15 @@ open class CalendarActivity : AppCompatActivity() {
                         )
                         layoutManager.recycleChildrenOnDetach = true
                         binding.recyclerViewMain.layoutManager = layoutManager
-
+                        if (mod=="first"){
+                            calendar.time
+                            val idx = calendar.get(Calendar.DAY_OF_MONTH) - 1
+                            val handler = Handler()
+                            handler.postDelayed({
+                                val yy = binding.recyclerViewMain.getChildAt(idx).y
+                                binding.nestedScrollView.smoothScrollTo(0, yy.toInt())
+                            }, 1500)
+                        }
                     }
 
                 }

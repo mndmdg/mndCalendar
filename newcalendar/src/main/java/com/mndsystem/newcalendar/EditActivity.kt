@@ -2,10 +2,14 @@ package com.mndsystem.newcalendar
 
 import android.app.DatePickerDialog
 import android.graphics.Rect
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.MotionEvent
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -40,6 +44,15 @@ class EditActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        // 하단 내비게이션 바 삭제
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
 
         val sdx = intent.getStringExtra("sdx").toString()
         val dat = intent.getStringExtra("dat").toString()
@@ -50,7 +63,9 @@ class EditActivity : AppCompatActivity() {
         with(binding) {
             // 날짜선택
             editDate.setOnClickListener {
+                val calDate = editDate.text.toString()
                 val today = GregorianCalendar()
+                today.set(calDate.substring(0,4).toInt(),calDate.substring(5,7).toInt()-1,calDate.substring(8,10).toInt())
                 val year = today.get(Calendar.YEAR)
                 val month = today.get(Calendar.MONTH)
                 val date = today.get(Calendar.DATE)
@@ -58,7 +73,7 @@ class EditActivity : AppCompatActivity() {
 
                 val dig = DatePickerDialog(this@EditActivity,
                     {view,year,month,dayOfmonth->
-                        cal.set(year, month, date)
+                        cal.set(year, month, dayOfmonth)
                         binding.editDate.text =SimpleDateFormat("yyyy-MM-dd").format(cal.time)
                     },year,month,date
                 )
